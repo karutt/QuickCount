@@ -1,0 +1,32 @@
+#!/usr/bin/osascript -l JavaScript
+
+function run() {
+    var jsonData = {
+        response: `
+### **Available Commands**
+- **"+"**: Increment the current counter by 1.
+    - Example: \`kwd +\` → Increases the value from 5 to 6.
+    
+- **"-"**: Decrement the current counter by 1.
+    - Example: \`kwd -\` → Decreases the value from 5 to 4.
+
+- **"r"**: Reset the counter to 0.
+    - Example: \`kwd r\` → Sets the counter to 0.
+
+- **Set a specific value**: Enter a number to set the counter directly.
+    - Example: \`kwd 42\` → Changes the counter to 42.
+
+- **Increment or decrement by a specific value**: Use \`+\` or \`-\` followed by a number.
+    - Example: \`kwd +5\` → Increases the value by 5.
+    - Example: \`kwd -3\` → Decreases the value by 3.
+
+- **"b"**: Remove the most recent counter entry if there is more than one.
+    - Example: If the history contains multiple values, \`b\` deletes the latest one.
+- **"ref"**: Displays the reference guide.
+    - Example: \`kwd ref\` → Shows the reference guide.
+`,
+        variables: {},
+        behaviour: {},
+    };
+    return JSON.stringify(jsonData);
+}

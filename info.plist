@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>karutt.alfred.QuickCount</string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>55BF3E4F-B839-422E-83D1-6497E16ED2AC</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>15CF9F8A-5BF1-4340-BC85-CDE6EC15D4F4</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>044659B1-55FD-4774-9798-3259D7485D7B</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>8C48FFFF-4C3A-4AAB-AA6E-5B7F9DAC49EE</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>83D5028A-A20B-447D-BE39-8875D8A74541</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>3CDA2E05-1607-43D4-9896-BEA88EFD2EB7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>B00823A5-7108-401C-B5F5-F06BA8DCBA44</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>55BF3E4F-B839-422E-83D1-6497E16ED2AC</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>karutt</string>
+	<key>description</key>
+	<string>A fast and easy way to track, update, and manage numerical values with timestamps directly from Alfred.</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>QuickCount</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>behaviour</key>
+				<integer>2</integer>
+				<key>fontmode</key>
+				<integer>0</integer>
+				<key>fontsizing</key>
+				<integer>0</integer>
+				<key>footertext</key>
+				<string></string>
+				<key>inputfile</key>
+				<string>ref</string>
+				<key>inputtype</key>
+				<integer>1</integer>
+				<key>loadingtext</key>
+				<string></string>
+				<key>outputmode</key>
+				<integer>0</integer>
+				<key>scriptinput</key>
+				<integer>1</integer>
+				<key>spellchecking</key>
+				<integer>0</integer>
+				<key>stackview</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.userinterface.text</string>
+			<key>uid</key>
+			<string>15CF9F8A-5BF1-4340-BC85-CDE6EC15D4F4</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>{var:kwd}</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>Cnt</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>B00823A5-7108-401C-B5F5-F06BA8DCBA44</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>conditions</key>
+				<array>
+					<dict>
+						<key>inputstring</key>
+						<string>{query}</string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>0</integer>
+						<key>matchstring</key>
+						<string>ref</string>
+						<key>outputlabel</key>
+						<string></string>
+						<key>uid</key>
+						<string>044659B1-55FD-4774-9798-3259D7485D7B</string>
+					</dict>
+				</array>
+				<key>elselabel</key>
+				<string>else</string>
+				<key>hideelse</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.conditional</string>
+			<key>uid</key>
+			<string>55BF3E4F-B839-422E-83D1-6497E16ED2AC</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>import sys
+from datetime import datetime
+
+def load_data(file_path='data.txt'):
+    with open(file_path) as f:
+        lines = f.read().splitlines()
+    return [line.split(",") for line in lines] if lines else [["0", format_datetime(datetime.now())]]
+
+def save_data(data, file_path='data.txt'):
+    with open(file_path, 'w') as f:
+        f.write("\n".join([",".join(entry) for entry in data[:20]]))
+
+def format_datetime(dt):
+    return dt.strftime("%Y-%m-%d %H:%M:%S")
+
+def update_count(query, count):
+    if query == "+":
+        return str(int(count) + 1)
+    if query == "-":
+        return str(int(count) - 1)
+    if query == "r":
+        return "0"
+    if query.isdigit():
+        return query
+    if query[0] in ["+", "-"] and query[1:].isdigit():
+        return str(int(count) + int(query)) if query[0] == "+" else str(int(count) - int(query))
+    return count
+
+query = sys.argv[1] if len(sys.argv) &gt; 1 else ""
+data = load_data()
+
+if not data and query.isdigit():
+    data = [[query, format_datetime(datetime.now())]]
+elif not data:
+    data = [["0", format_datetime(datetime.now())]]
+
+if query == "b" and len(data) &gt; 1:
+    data.pop(0)
+else:
+    new_count = update_count(query, data[0][0])
+    data.insert(0, [new_count, format_datetime(datetime.now())])
+
+save_data(data)</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>9</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>8C48FFFF-4C3A-4AAB-AA6E-5B7F9DAC49EE</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>keyword</key>
+				<string>{var:kwd}</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>import json
+
+def load_data(file_path='data.txt'):
+    with open(file_path) as f:
+        lines = f.read().splitlines()
+    return [line.split(",") for line in lines] if lines else [["0", ""]]
+
+data = load_data()
+
+output = {
+    "items": [
+        {
+            "uid": str(i + 1),
+            "title": count,
+            "subtitle": timestamp,
+            "arg": count,
+        }
+        for i, (count, timestamp) in enumerate(data[:3])
+    ]
+}
+
+
+print(json.dumps(output, ensure_ascii=False, indent=2))
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string></string>
+				<key>type</key>
+				<integer>9</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>83D5028A-A20B-447D-BE39-8875D8A74541</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<true/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>3CDA2E05-1607-43D4-9896-BEA88EFD2EB7</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>### **Available Commands**
+
+- **"+"**: Increment the current counter by 1.
+    - Example: \`kwd +\` → Increases the value from 5 to 6.
+    
+- **"-"**: Decrement the current counter by 1.
+    - Example: \`kwd -\` → Decreases the value from 5 to 4.
+
+- **"r"**: Reset the counter to 0.
+    - Example: \`kwd r\` → Sets the counter to 0.
+
+- **Set a specific value**: Enter a number to set the counter directly.
+    - Example: \`kwd 42\` → Changes the counter to 42.
+
+- **Increment or decrement by a specific value**: Use \`+\` or \`-\` followed by a number.
+    - Example: \`kwd +5\` → Increases the value by 5.
+    - Example: \`kwd -3\` → Decreases the value by 3.
+
+- **"b"**: Remove the most recent counter entry if there is more than one.
+    - Example: If the history contains multiple values, \`b\` deletes the latest one.
+
+- **"ref"**: Displays the reference guide.
+    - Example: \`kwd ref\` → Shows the reference guide.</string>
+	<key>uidata</key>
+	<dict>
+		<key>15CF9F8A-5BF1-4340-BC85-CDE6EC15D4F4</key>
+		<dict>
+			<key>xpos</key>
+			<real>285</real>
+			<key>ypos</key>
+			<real>155</real>
+		</dict>
+		<key>3CDA2E05-1607-43D4-9896-BEA88EFD2EB7</key>
+		<dict>
+			<key>xpos</key>
+			<real>285</real>
+			<key>ypos</key>
+			<real>400</real>
+		</dict>
+		<key>55BF3E4F-B839-422E-83D1-6497E16ED2AC</key>
+		<dict>
+			<key>xpos</key>
+			<real>195</real>
+			<key>ypos</key>
+			<real>190</real>
+		</dict>
+		<key>83D5028A-A20B-447D-BE39-8875D8A74541</key>
+		<dict>
+			<key>xpos</key>
+			<real>35</real>
+			<key>ypos</key>
+			<real>400</real>
+		</dict>
+		<key>8C48FFFF-4C3A-4AAB-AA6E-5B7F9DAC49EE</key>
+		<dict>
+			<key>xpos</key>
+			<real>285</real>
+			<key>ypos</key>
+			<real>275</real>
+		</dict>
+		<key>B00823A5-7108-401C-B5F5-F06BA8DCBA44</key>
+		<dict>
+			<key>xpos</key>
+			<real>30</real>
+			<key>ypos</key>
+			<real>170</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>cnt</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>keyword</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>kwd</string>
+		</dict>
+	</array>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>1.0</string>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
